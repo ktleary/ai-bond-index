@@ -14,3 +14,4 @@ cd "$REPO"
 "$PY" "$REPO/code/ai_bond_index.py"
 # MEDIA: line from the plotter so no_agent cron delivery includes the chart photo.
 "$PY" "$REPO/code/plot_ai_bond_benchmark_spreads.py"
+"$PY" "$REPO/site/generate.py"
