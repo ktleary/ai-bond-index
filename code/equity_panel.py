@@ -24,8 +24,9 @@ from pathlib import Path
 
 from public_client import PublicClient
 
-ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "data" / "ai-bond-index" / "equity_daily.csv"
+from paths import data_dir
+
+OUT = data_dir() / "equity_daily.csv"
 
 # Canonical issuer -> equity ticker (matches ai_bond_index.ISSUERS)
 TICK = {

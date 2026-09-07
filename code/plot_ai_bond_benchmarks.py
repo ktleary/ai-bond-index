@@ -5,8 +5,8 @@ For each issuer, pick the single most-covered CUSIP in the trailing 30-day
 snapshot window, tie-breaking by maturity closest to 10Y. Plot each chosen
 bond's yield series with a latest-value label.
 
-Data source: daily per-bond CSVs from the ai_bond_index cron in
-/home/openclaw/automation/finance/data/ai-bond-index/
+Data source: daily per-bond CSVs in the repo ``data/`` directory
+(override with AI_BOND_DATA_DIR).
 """
 import csv
 from collections import defaultdict
@@ -18,8 +18,10 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-DATA_DIR = Path("/home/openclaw/automation/finance/data/ai-bond-index")
-OUT = Path(DATA_DIR) / "ai_bond_benchmarks_30d.png"
+from paths import data_dir
+
+DATA_DIR = data_dir()
+OUT = DATA_DIR / "ai_bond_benchmarks_30d.png"
 DAYS = 30
 
 ISSUER_ORDER = ["Microsoft", "Alphabet", "Amazon", "Meta", "Oracle", "Nvidia", "Broadcom"]

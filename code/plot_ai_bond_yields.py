@@ -15,8 +15,10 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-DATA_DIR = Path("/home/openclaw/automation/finance/data/ai-bond-index")
-OUT = Path("/home/openclaw/automation/finance/data/ai-bond-index/ai_bond_yields_30d.png")
+from paths import data_dir
+
+DATA_DIR = data_dir()
+OUT = DATA_DIR / "ai_bond_yields_30d.png"
 DAYS = 30
 
 # Order + colors so the basket reads intuitively (hyperscalers, then infra).
