@@ -25,8 +25,9 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
-ROOT = Path(__file__).resolve().parents[1]
-DATA_DIR = ROOT / "data" / "ai-bond-index"
+from paths import data_dir
+
+DATA_DIR = data_dir()
 LATEST_MD = DATA_DIR / "latest.md"
 LATEST_CSV = DATA_DIR / "latest.csv"
 LATEST_JSON = DATA_DIR / "latest.json"

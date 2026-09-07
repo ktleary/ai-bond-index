@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
+# Same runner as cron/ai_bond_index.sh (kept next to the Python so a local
+# `code/` invocation works). Prefer cron/ai_bond_index.sh for scheduling.
 set -euo pipefail
-cd /home/openclaw/automation/finance
-python3 scripts/ai_bond_index.py
-# Regenerate the 30-day spread-to-Treasury benchmark chart and emit a MEDIA
-# line so the no_agent cron delivery includes it as a photo with the report.
-python3 scripts/plot_ai_bond_benchmark_spreads.py
+REPO="$(cd "$(dirname "$0")/.." && pwd)"
+exec "$REPO/cron/ai_bond_index.sh"

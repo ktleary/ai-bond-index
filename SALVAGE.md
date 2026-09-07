@@ -49,6 +49,6 @@ Also copied (related, not in cron):
 - Charting needs **matplotlib** (grid9 had 3.11.1). mesh9 Tide profile currently lacks matplotlib/numpy — install in a venv before re-enabling plots.
 - `equity_panel.py` is a Public.com add-on, not the FINRA index.
 - Cron delivery was Telegram (`deliver: origin`); do not blindly re-enable that origin on mesh9 without operator say-so.
-- Paths inside scripts/wrappers are hard-coded to `/home/openclaw/automation/finance` — must be rewritten before running on mesh9.
+- Paths were originally hard-coded to `/home/openclaw/automation/finance`. Mesh9 rewrite: repo-relative `data/` + `AI_BOND_DATA_DIR` (see README). Do not copy `finance/secrets/` for this pipeline.
 
 Not started on mesh9. Grid9 left untouched (no crontab edits).

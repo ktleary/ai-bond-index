@@ -46,8 +46,26 @@ file is per-bond; a bare plot is noisy) — see `docs/`.
 
 ## Running
 
-Requires Python 3 with `matplotlib` (Agg). See `docs/` for the data layout
-and charting recipes. Originally ran on a weekday 23:30 UTC schedule.
+Requires Python 3.13+ and a **repo-local venv** (do not install matplotlib
+into system Python — Debian PEP 668). Agg backend is required for headless
+charting.
+
+```bash
+cd ~/mesh9/ai-bond-index
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+./cron/ai_bond_index.sh
+```
+
+Paths:
+- Snapshots default to `<repo>/data/` (not a nested `data/ai-bond-index/`).
+- Override with `AI_BOND_DATA_DIR` (absolute, `~`-expanded, or relative to repo).
+- Venv override: `AI_BOND_VENV` (default `<repo>/.venv`).
+
+Schedule on mesh9: weekday **23:30 UTC** via Tide Hermes cron (`no_agent`
+script, Telegram delivery of stdout + `MEDIA:` chart PNG).
+
+See `docs/` for the data layout and charting recipes.
 
 ## Provenance
 

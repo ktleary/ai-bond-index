@@ -15,7 +15,9 @@ from collections import defaultdict
 from datetime import date, timedelta
 from pathlib import Path
 
-DATA_DIR = Path("/home/openclaw/automation/finance/data/ai-bond-index")
+from paths import data_dir
+
+DATA_DIR = data_dir()
 DAYS = 30
 
 def main() -> None:
