@@ -1,0 +1,236 @@
+{
+  "generated": "2026-09-04T23:32:00.659577+00:00",
+  "treasury_date": "2026-09-04",
+  "treasury_curve": {
+    "0.08333333333333333": 3.79,
+    "0.16666666666666666": 3.9,
+    "0.25": 3.91,
+    "0.3333333333333333": 4.0,
+    "0.5": 3.98,
+    "1": 4.13,
+    "2": 4.37,
+    "3": 4.45,
+    "5": 4.54,
+    "7": 4.65,
+    "10": 4.78,
+    "20": 5.25,
+    "30": 5.24
+  },
+  "summary": {
+    "Oracle": {
+      "count": 52,
+      "median_spread_bps": 209.60702114989726,
+      "median_yield_pct": 6.91421,
+      "freshest_trade": 0,
+      "oldest_included_trade": 1,
+      "buckets": {
+        "1-3Y": {
+          "count": 5,
+          "median_spread_bps": 77.38992094455845
+        },
+        "3-7Y": {
+          "count": 13,
+          "median_spread_bps": 153.73772128678985
+        },
+        "7-12Y": {
+          "count": 9,
+          "median_spread_bps": 207.23466958704088
+        },
+        "12Y+": {
+          "count": 25,
+          "median_spread_bps": 246.4668945242984
+        }
+      }
+    },
+    "Microsoft": {
+      "count": 25,
+      "median_spread_bps": 64.74993326488709,
+      "median_yield_pct": 5.884089,
+      "freshest_trade": 0,
+      "oldest_included_trade": 2,
+      "buckets": {
+        "1-3Y": {
+          "count": 0,
+          "median_spread_bps": null
+        },
+        "3-7Y": {
+          "count": 1,
+          "median_spread_bps": 12.264976386036874
+        },
+        "7-12Y": {
+          "count": 4,
+          "median_spread_bps": 31.994227983116552
+        },
+        "12Y+": {
+          "count": 20,
+          "median_spread_bps": 68.83356718001369
+        }
+      }
+    },
+    "Meta": {
+      "count": 25,
+      "median_spread_bps": 108.4845898927675,
+      "median_yield_pct": 5.830025,
+      "freshest_trade": 0,
+      "oldest_included_trade": 0,
+      "buckets": {
+        "1-3Y": {
+          "count": 2,
+          "median_spread_bps": 15.877734565366186
+        },
+        "3-7Y": {
+          "count": 8,
+          "median_spread_bps": 58.44196149897325
+        },
+        "7-12Y": {
+          "count": 3,
+          "median_spread_bps": 105.36743823864923
+        },
+        "12Y+": {
+          "count": 12,
+          "median_spread_bps": 171.51028874058858
+        }
+      }
+    },
+    "Alphabet": {
+      "count": 30,
+      "median_spread_bps": 76.10706203513575,
+      "median_yield_pct": 5.5416545,
+      "freshest_trade": 0,
+      "oldest_included_trade": 0,
+      "buckets": {
+        "1-3Y": {
+          "count": 4,
+          "median_spread_bps": 22.41786745379879
+        },
+        "3-7Y": {
+          "count": 8,
+          "median_spread_bps": 46.99450807665974
+        },
+        "7-12Y": {
+          "count": 4,
+          "median_spread_bps": 75.39139496919915
+        },
+        "12Y+": {
+          "count": 14,
+          "median_spread_bps": 102.73379514031484
+        }
+      }
+    },
+    "Amazon": {
+      "count": 42,
+      "median_spread_bps": 79.64564346338122,
+      "median_yield_pct": 5.5754255,
+      "freshest_trade": 0,
+      "oldest_included_trade": 1,
+      "buckets": {
+        "1-3Y": {
+          "count": 7,
+          "median_spread_bps": 24.315732511978094
+        },
+        "3-7Y": {
+          "count": 11,
+          "median_spread_bps": 53.14213757700203
+        },
+        "7-12Y": {
+          "count": 5,
+          "median_spread_bps": 74.9192697923796
+        },
+        "12Y+": {
+          "count": 19,
+          "median_spread_bps": 110.85089999999997
+        }
+      }
+    },
+    "Nvidia": {
+      "count": 13,
+      "median_spread_bps": 73.87344798083504,
+      "median_yield_pct": 5.376575,
+      "freshest_trade": 0,
+      "oldest_included_trade": 0,
+      "buckets": {
+        "1-3Y": {
+          "count": 3,
+          "median_spread_bps": 26.148227720739214
+        },
+        "3-7Y": {
+          "count": 4,
+          "median_spread_bps": 53.07282669404513
+        },
+        "7-12Y": {
+          "count": 1,
+          "median_spread_bps": 87.03005361624454
+        },
+        "12Y+": {
+          "count": 5,
+          "median_spread_bps": 91.82265824777546
+        }
+      }
+    },
+    "Broadcom": {
+      "count": 32,
+      "median_spread_bps": 93.57480256673512,
+      "median_yield_pct": 5.512393,
+      "freshest_trade": 0,
+      "oldest_included_trade": 3,
+      "buckets": {
+        "1-3Y": {
+          "count": 5,
+          "median_spread_bps": 43.80550739219711
+        },
+        "3-7Y": {
+          "count": 16,
+          "median_spread_bps": 86.90682087611222
+        },
+        "7-12Y": {
+          "count": 8,
+          "median_spread_bps": 119.90194235683319
+        },
+        "12Y+": {
+          "count": 3,
+          "median_spread_bps": 123.88323066392877
+        }
+      }
+    }
+  },
+  "diagnostics": {
+    "issuers": {
+      "Oracle": {
+        "raw_matches": 76,
+        "active_after_filters": 54,
+        "usable_recent": 52
+      },
+      "Microsoft": {
+        "raw_matches": 59,
+        "active_after_filters": 28,
+        "usable_recent": 25
+      },
+      "Meta": {
+        "raw_matches": 34,
+        "active_after_filters": 28,
+        "usable_recent": 25
+      },
+      "Alphabet": {
+        "raw_matches": 40,
+        "active_after_filters": 33,
+        "usable_recent": 30
+      },
+      "Amazon": {
+        "raw_matches": 78,
+        "active_after_filters": 49,
+        "usable_recent": 42
+      },
+      "Nvidia": {
+        "raw_matches": 18,
+        "active_after_filters": 13,
+        "usable_recent": 13
+      },
+      "Broadcom": {
+        "raw_matches": 107,
+        "active_after_filters": 55,
+        "usable_recent": 32
+      }
+    },
+    "warnings": []
+  }
+}
