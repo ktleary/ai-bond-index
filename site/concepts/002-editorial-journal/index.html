@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Capex Credit Monitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0e1210; --panel: #151b17; --border: #24302a;
+    --fg: #d5ddd6; --muted: #7a8a7f; --green: #2f6f4f; --green-hi: #4caf7d;
+    --amber: #d9a05b;
+  }
+  body { background: var(--bg); color: var(--fg); font-family: 'Newsreader', Georgia, serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem; }
+  .kicker { font-family: 'Inter', sans-serif; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; color: var(--green-hi); }
+  h1 { font-size: 2.4rem; font-weight: 400; line-height: 1.15; margin: .6rem 0 1rem; color: #e9efe9; }
+  h1 em { font-style: italic; color: var(--green-hi); }
+  .dateline { font-family: 'Inter', sans-serif; font-size: .75rem; color: var(--muted); padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); margin-bottom: 1.4rem; }
+  .lede { font-size: 1.15rem; color: #c4cfc5; margin-bottom: 1.4rem; }
+  .lede strong { color: var(--amber); font-weight: 500; }
+  .bigstat { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin: 1.6rem 0; }
+  .bigstat .cell { background: var(--panel); padding: 1.1rem 1.3rem; }
+  .cell .k { font-family: 'Inter', sans-serif; font-size: .65rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+  .cell .v { font-family: 'Inter', sans-serif; font-size: 2rem; font-weight: 600; color: var(--green-hi); margin-top: .3rem; }
+  .cell .v .u { font-size: .8rem; color: var(--muted); }
+  h3 { font-size: 1.05rem; font-weight: 700; margin: 2rem 0 .6rem; color: #e9efe9; }
+  p { margin-bottom: 1rem; color: #b7c2b9; }
+  .issuer-row { display: flex; justify-content: space-between; align-items: baseline; padding: .55rem 0; border-bottom: 1px solid #1b241f; font-family: 'Inter', sans-serif; font-size: .85rem; }
+  .issuer-row .name { color: #d5ddd6; }
+  .issuer-row .name small { color: var(--muted); margin-left: .5rem; }
+  .issuer-row .spread { font-weight: 600; }
+  .infra .spread { color: var(--amber); }
+  .hyper .spread { color: var(--green-hi); }
+  .divider-note { font-family: 'Inter', sans-serif; font-size: .7rem; color: var(--muted); margin: 1.2rem 0; padding: .8rem 1rem; background: var(--panel); border-left: 3px solid var(--green); }
+  .chart-frame { border: 1px solid var(--border); padding: 1rem; margin: 1.4rem 0; text-align: center; color: var(--muted); font-family: 'Inter', sans-serif; font-size: .72rem; }
+  .foot { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--border); font-family: 'Inter', sans-serif; font-size: .68rem; color: var(--muted); display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Daily Briefing · Fixed Income</div>
+  <h1>The market is still paying AI-capex borrowers — <em>but the gap is widening</em></h1>
+  <div class="dateline">AI Capex Bond Spread Monitor — Monday, September 7, 2026 · FINRA TRACE · 219 bonds tracked</div>
+
+  <p class="lede">The AI-capex basket's median spread sits at <strong>92 basis points</strong> over Treasuries this session. But the average hides the story: the <strong>49-basis-point gap</strong> between AI-infrastructure borrowers and hyperscalers continues to widen, led almost entirely by Oracle.</p>
+
+  <div class="bigstat">
+    <div class="cell"><div class="k">Basket median</div><div class="v">92<span class="u"> bps</span></div></div>
+    <div class="cell"><div class="k">Infra ↔ hyperscaler gap</div><div class="v">49<span class="u"> bps</span></div></div>
+  </div>
+
+  <h3>The ladder</h3>
+  <p>Sorted by stress, the seven-issuer watchlist tells a clean story — the names borrowing most aggressively against AI demand are paying for it:</p>
+
+  <div>
+    <div class="issuer-row infra"><span class="name">Oracle<small>ORCL · 52 bonds</small></span><span class="spread">210 bps</span></div>
+    <div class="issuer-row infra"><span class="name">Meta<small>META · 25 bonds</small></span><span class="spread">109 bps</span></div>
+    <div class="issuer-row infra"><span class="name">Broadcom<small>AVGO · 32 bonds</small></span><span class="spread">94 bps</span></div>
+    <div class="issuer-row hyper"><span class="name">Amazon<small>AMZN · 42 bonds</small></span><span class="spread">80 bps</span></div>
+    <div class="issuer-row hyper"><span class="name">Alphabet<small>GOOGL · 30 bonds</small></span><span class="spread">76 bps</span></div>
+    <div class="issuer-row hyper"><span class="name">Nvidia<small>NVDA · 13 bonds</small></span><span class="spread">74 bps</span></div>
+    <div class="issuer-row hyper"><span class="name">Microsoft<small>MSFT · 25 bonds</small></span><span class="spread">65 bps</span></div>
+  </div>
+
+  <div class="divider-note">The signal: when AI-infra names (ORCL · AVGO · META) widen while IG hyperscalers (MSFT · GOOGL · AMZN) stay tight, the bond market is pricing AI-capex balance-sheet risk.</div>
+
+  <div class="chart-frame">[ 30-day benchmark spread chart — the daily visual ]</div>
+
+  <div class="foot">
+    <span>Data: FINRA public TRACE · Treasury-interpolated</span>
+    <span>Refreshed weekdays 19:30 ET</span>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Bond Index</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0b0d10; --panel: #12151a; --panel2: #171b21; --border: #232935;
+    --fg: #d3dae2; --muted: #64707d; --green: #2f6f4f; --green-hi: #57b380;
+    --amber: #d9a05b; --blue: #5b9dd9;
+  }
+  body { background: var(--bg); color: var(--fg); font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 1.6rem 1.4rem; }
+  .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.4rem; }
+  .brand { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; color: #e8eef4; }
+  .brand span { color: var(--green-hi); }
+  .live { font-size: .68rem; color: var(--muted); display: flex; gap: 1rem; align-items: center; }
+  .live .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-hi); display: inline-block; margin-right: 5px; }
+  .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1.2rem; }
+  .card h4 { font-size: .68rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); font-weight: 600; margin-bottom: .7rem; }
+  .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
+  .kpi { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: .95rem 1.1rem; }
+  .kpi .k { font-size: .65rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+  .kpi .v { font-size: 1.7rem; font-weight: 700; margin-top: .2rem; color: #e8eef4; }
+  .kpi .v .u { font-size: .75rem; color: var(--muted); font-weight: 400; }
+  .kpi .sub { font-size: .68rem; margin-top: .15rem; }
+  .up { color: var(--green-hi); } .warn { color: var(--amber); } .down { color: #d97a76; }
+  .spark { display: flex; align-items: flex-end; gap: 2px; height: 34px; margin-top: .5rem; }
+  .spark i { flex: 1; background: var(--border); border-radius: 1px; display: block; }
+  .spark i.hi { background: var(--amber); }
+  table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+  th { text-align: left; font-size: .64rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; padding: .35rem .5rem; border-bottom: 1px solid var(--border); }
+  td { padding: .5rem; border-bottom: 1px solid #1a2028; }
+  td.num { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .tag { font-size: .62rem; padding: .15rem .45rem; border-radius: 4px; font-weight: 600; letter-spacing: .03em; }
+  .tag.infra { background: #3a2e1a; color: var(--amber); }
+  .tag.hyper { background: #1a3a2a; color: var(--green-hi); }
+  .meter { height: 5px; border-radius: 3px; background: var(--border); overflow: hidden; }
+  .meter i { display: block; height: 100%; border-radius: 3px; }
+  .rht { color: var(--muted); font-size: .68rem; margin-top: 1.2rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">AI Bond <span>Index</span></div>
+    <div class="live"><span><span class="dot"></span>Snapshot 2026-09-07</span><span>219 bonds</span></div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="k">Basket median</div><div class="v">92<span class="u"> bps</span></div><div class="sub up">▼ 4 vs prior session</div></div>
+    <div class="kpi"><div class="k">Infra ↔ hyperscaler gap</div><div class="v">49<span class="u"> bps</span></div><div class="sub warn">▲ 3 widening</div></div>
+    <div class="kpi"><div class="k">Widest / tightest</div><div class="v" style="font-size:1.1rem">ORCL 210 <span class="u">/</span> MSFT 65</div><div class="sub down">Oracle leads the move</div></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h4>Spread ladder · per issuer</h4>
+      <table>
+        <thead><tr><th>Issuer</th><th>Class</th><th>Median</th><th>Δ</th><th>Distribution</th><th>Bonds</th></tr></thead>
+        <tbody>
+          <tr><td>Oracle ORCL</td><td><span class="tag infra">INFRA</span></td><td class="num">210</td><td class="num down">+12</td><td><div class="meter"><i style="width:100%;background:#d97a76"></i></div></td><td>52</td></tr>
+          <tr><td>Meta META</td><td><span class="tag infra">INFRA</span></td><td class="num">109</td><td class="num down">+4</td><td><div class="meter"><i style="width:52%;background:#d9a05b"></i></div></td><td>25</td></tr>
+          <tr><td>Broadcom AVGO</td><td><span class="tag infra">INFRA</span></td><td class="num">94</td><td class="num up">-3</td><td><div class="meter"><i style="width:45%;background:#d9a05b"></i></div></td><td>32</td></tr>
+          <tr><td>Amazon AMZN</td><td><span class="tag hyper">HYPER</span></td><td class="num">80</td><td class="num up">-2</td><td><div class="meter"><i style="width:38%;background:#57b380"></i></div></td><td>42</td></tr>
+          <tr><td>Alphabet GOOGL</td><td><span class="tag hyper">HYPER</span></td><td class="num">76</td><td class="num up">-1</td><td><div class="meter"><i style="width:36%;background:#57b380"></i></div></td><td>30</td></tr>
+          <tr><td>Nvidia NVDA</td><td><span class="tag hyper">HYPER</span></td><td class="num">74</td><td class="num">0</td><td><div class="meter"><i style="width:35%;background:#57b380"></i></div></td><td>13</td></tr>
+          <tr><td>Microsoft MSFT</td><td><span class="tag hyper">HYPER</span></td><td class="num">65</td><td class="num">0</td><td><div class="meter"><i style="width:31%;background:#57b380"></i></div></td><td>25</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h4>30-day spread trend</h4>
+      <div class="spark">
+        <i style="height:40%"></i><i style="height:45%"></i><i style="height:38%"></i><i style="height:52%"></i>
+        <i style="height:48%"></i><i style="height:58%"></i><i style="height:55%"></i><i style="height:62%"></i>
+        <i class="hi" style="height:70%"></i><i class="hi" style="height:68%"></i><i class="hi" style="height:78%"></i>
+        <i class="hi" style="height:74%"></i><i class="hi" style="height:82%"></i><i class="hi" style="height:88%"></i>
+      </div>
+      <div class="rht">Oracle median spread, last 14 sessions — full chart below.</div>
+      <div style="border:1px dashed var(--border); border-radius:8px; padding:1rem; text-align:center; color:var(--muted); font-size:.7rem; margin-top:.8rem">[ benchmark_spreads_30d.png ]</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

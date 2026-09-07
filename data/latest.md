@@ -1,6 +1,6 @@
 # AI Capex Credit Spread Snapshot — 2026-09-07
 
-Generated: 2026-09-07T02:57:08+00:00
+Generated: 2026-09-07T03:01:07+00:00
 Treasury curve date: 2026-09-04
 
 Method: FINRA public TRACE/fixed-income latest and end-of-day bond yields minus linearly interpolated Treasury yields. Callable bonds included; 144A bonds excluded. This is a monitoring signal, not OAS / yield-to-worst pricing.

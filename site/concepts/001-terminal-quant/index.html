@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Bond Index — Terminal</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0e12; --panel: #10161c; --border: #1c2630;
+    --fg: #c9d4dd; --muted: #5c6b77; --green: #2f6f4f; --accent: #e8b34b;
+    --red: #d9534f; --mono: "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  }
+  body { background: var(--bg); color: var(--fg); font-family: var(--mono); line-height: 1.45; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 1.5rem; }
+  header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--border); padding-bottom: .8rem; }
+  h1 { font-size: 1rem; font-weight: 600; letter-spacing: .04em; color: #e8f0e8; }
+  h1 .dim { color: var(--muted); }
+  .tick { font-size: .72rem; color: var(--muted); }
+  .hero { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 1.2rem 0; }
+  .cell { background: var(--panel); padding: .9rem 1rem; }
+  .cell .k { font-size: .65rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+  .cell .v { font-size: 1.45rem; font-weight: 600; margin-top: .25rem; color: #e8f0e8; }
+  .cell .v .u { font-size: .7rem; color: var(--muted); margin-left: .2rem; }
+  .cell.gap .v { color: var(--accent); }
+  h2 { font-size: .72rem; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); margin: 1.6rem 0 .6rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+  th { text-align: left; color: var(--muted); font-weight: 500; padding: .4rem .6rem; border-bottom: 1px solid var(--border); font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; }
+  td { padding: .5rem .6rem; border-bottom: 1px solid #131a21; }
+  tr:hover td { background: #131b23; }
+  .sym { color: #8fa3b0; }
+  .spread { font-weight: 600; color: #e8f0e8; }
+  .wide { color: var(--red); }
+  .tight { color: var(--green); }
+  .bar { display: inline-block; height: 8px; background: linear-gradient(90deg, var(--green), var(--accent), var(--red)); border-radius: 2px; vertical-align: middle; }
+  .foot { margin-top: 2rem; padding-top: .8rem; border-top: 1px solid var(--border); font-size: .7rem; color: var(--muted); display: flex; justify-content: space-between; }
+  .chart-placeholder { border: 1px dashed var(--border); padding: 1.2rem; color: var(--muted); font-size: .75rem; text-align: center; margin-top: .8rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>AI-BOND-INDEX <span class="dim">/ capex credit monitor</span></h1>
+    <div class="tick">SNAPSHOT 2026-09-07 · FINRA TRACE · 219 BONDS · Δ vs PRIOR</div>
+  </header>
+
+  <div class="hero">
+    <div class="cell"><div class="k">Basket median</div><div class="v">92<span class="u">bps</span></div></div>
+    <div class="cell gap"><div class="k">Infra ↔ hyperscaler gap</div><div class="v">49<span class="u">bps</span></div></div>
+    <div class="cell"><div class="k">Widest name</div><div class="v">ORCL 210</div></div>
+    <div class="cell"><div class="k">Tightest name</div><div class="v">MSFT 65</div></div>
+  </div>
+
+  <h2>Per-issuer spread ladder</h2>
+  <table>
+    <thead><tr><th>Issuer</th><th>Median spread</th><th>Δ</th><th>Term structure</th><th>Bonds</th><th>Bucket</th></tr></thead>
+    <tbody>
+      <tr><td>Oracle <span class="sym">ORCL</span></td><td class="spread wide">210 bps</td><td style="color:var(--red)">+12</td><td><span class="bar" style="width:210px"></span></td><td>52</td><td class="sym">AI-infra</td></tr>
+      <tr><td>Meta <span class="sym">META</span></td><td class="spread">109 bps</td><td style="color:var(--red)">+4</td><td><span class="bar" style="width:109px"></span></td><td>25</td><td class="sym">AI-infra</td></tr>
+      <tr><td>Broadcom <span class="sym">AVGO</span></td><td class="spread">94 bps</td><td style="color:var(--green)">-3</td><td><span class="bar" style="width:94px"></span></td><td>32</td><td class="sym">AI-infra</td></tr>
+      <tr><td>Amazon <span class="sym">AMZN</span></td><td class="spread tight">80 bps</td><td style="color:var(--green)">-2</td><td><span class="bar" style="width:80px"></span></td><td>42</td><td class="sym">Hyperscaler</td></tr>
+      <tr><td>Alphabet <span class="sym">GOOGL</span></td><td class="spread tight">76 bps</td><td style="color:var(--green)">-1</td><td><span class="bar" style="width:76px"></span></td><td>30</td><td class="sym">Hyperscaler</td></tr>
+      <tr><td>Nvidia <span class="sym">NVDA</span></td><td class="spread tight">74 bps</td><td style="color:var(--green)">0</td><td><span class="bar" style="width:74px"></span></td><td>13</td><td class="sym">Hyperscaler</td></tr>
+      <tr><td>Microsoft <span class="sym">MSFT</span></td><td class="spread tight">65 bps</td><td style="color:var(--green)">0</td><td><span class="bar" style="width:65px"></span></td><td>25</td><td class="sym">Hyperscaler</td></tr>
+    </tbody>
+  </table>
+
+  <h2>30-day benchmark spreads</h2>
+  <div class="chart-placeholder">[ ai_bond_benchmark_spreads_30d.png — daily chart from the pipeline ]</div>
+
+  <div class="foot">
+    <span>Source: FINRA public TRACE · Treasury-interpolated spreads</span>
+    <span>Weekday 19:30 ET refresh</span>
+  </div>
+</div>
+</body>
+</html>
