@@ -434,45 +434,57 @@ def write_outputs(
     callable_note = "Callable bonds included" if include_callable else "Callable bonds excluded"
     lines.append(f"Method: FINRA public TRACE/fixed-income latest and end-of-day bond yields minus linearly interpolated Treasury yields. {callable_note}; 144A bonds excluded. This is a monitoring signal, not OAS / yield-to-worst pricing.")
     lines.append("")
-    lines.append("## Issuer summary")
-    lines.append("")
-    lines.append("| Issuer | Usable bonds | Median yield | Median spread | Freshest trade | Oldest included | 1-3Y | 3-7Y | 7-12Y | 12Y+ |")
-    lines.append("|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
-    for issuer, s in summary.items():
-        bucket_cells = []
-        for bucket in ["1-3Y", "3-7Y", "7-12Y", "12Y+"]:
-            b = s["buckets"][bucket]
-            cell = "n/a" if not b["count"] else f"{fmt_num(b['median_spread_bps'], 0)} bps ({b['count']})"
-            bucket_cells.append(cell)
-        lines.append(
-            f"| {issuer} | {s['count']} | {fmt_num(s['median_yield_pct'], 2, '%')} | {fmt_num(s['median_spread_bps'], 0, ' bps')} | "
-            f"{s['freshest_trade'] if s['freshest_trade'] is not None else 'n/a'}d | {s['oldest_included_trade'] if s['oldest_included_trade'] is not None else 'n/a'}d | "
-            + " | ".join(bucket_cells) + " |"
-        )
     all_spreads = [r.spread_bps for r in rows]
     hyperscaler = [r.spread_bps for r in rows if r.issuer in {"Microsoft", "Alphabet", "Amazon", "Meta"}]
     infra = [r.spread_bps for r in rows if r.issuer in {"Oracle", "Nvidia", "Broadcom"}]
+    hyp_med, inf_med = median(hyperscaler), median(infra)
+    gap = inf_med - hyp_med if inf_med is not None and hyp_med is not None else None
+    basket = f"- **Basket: {fmt_num(median(all_spreads), 0, ' bps')}** median across {len(rows)} usable bonds"
+    if hyp_med is not None:
+        basket += f" · Hyperscaler **{fmt_num(hyp_med, 0)}** · Infra **{fmt_num(inf_med, 0)}**"
+        if gap is not None:
+            basket += f" · Gap **{fmt_num(gap, 0)}**"
+    lines.append(basket)
     lines.append("")
-    lines.append("## Basket reads")
+    lines.append("## Issuer summary")
     lines.append("")
-    lines.append(f"- Overall AI capex basket median spread: **{fmt_num(median(all_spreads), 0, ' bps')}** across {len(rows)} usable bonds.")
-    lines.append(f"- Hyperscaler basket median spread: **{fmt_num(median(hyperscaler), 0, ' bps')}**.")
-    lines.append(f"- AI infra / capex-sensitive basket median spread: **{fmt_num(median(infra), 0, ' bps')}**.")
-    if median(infra) is not None and median(hyperscaler) is not None:
-        lines.append(f"- Infra minus hyperscaler spread gap: **{fmt_num(median(infra) - median(hyperscaler), 0, ' bps')}**.")
+    for issuer, s in summary.items():
+        buckets = " · ".join(
+            f"{bucket} {fmt_num(s['buckets'][bucket]['median_spread_bps'], 0)}" if s["buckets"][bucket]["count"] else f"{bucket} n/a"
+            for bucket in ["1-3Y", "3-7Y", "7-12Y", "12Y+"]
+        )
+        lines.append(f"- {issuer}: median **{fmt_num(s['median_spread_bps'], 0, ' bps')}** ({s['count']} bonds) · {buckets}")
     lines.append("")
-    lines.append("## Widest included bonds")
+    lines.append("## Widest bonds")
     lines.append("")
-    lines.append("| Issuer | CUSIP | Maturity | Yield | Tsy | Spread | Last trade | Rating |")
-    lines.append("|---|---|---:|---:|---:|---:|---:|---|")
-    for r in sorted(rows, key=lambda x: x.spread_bps, reverse=True)[:15]:
-        rating = "/".join(x for x in [r.sp_rating, r.moodys_rating] if x) or "n/a"
-        lines.append(f"| {r.issuer} | {r.cusip} | {r.maturity} | {r.yield_pct:.2f}% | {r.treasury_pct:.2f}% | {r.spread_bps:.0f} bps | {r.last_trade_date} | {rating} |")
+    widest = sorted(rows, key=lambda x: x.spread_bps, reverse=True)[:15]
+    if widest:
+        top_counts: dict[str, int] = {}
+        for r in widest:
+            top_counts[r.issuer] = top_counts.get(r.issuer, 0) + 1
+        dom_issuer, dom_n = max(top_counts.items(), key=lambda kv: (kv[1], kv[0]))
+        if dom_n >= max(3, len(widest) // 2):
+            dom_rows = [r for r in widest if r.issuer == dom_issuer]
+            years = sorted(r.maturity.year for r in dom_rows)
+            spreads = [r.spread_bps for r in dom_rows]
+            rating = "/".join(x for x in [dom_rows[0].sp_rating, dom_rows[0].moodys_rating] if x) or "n/a"
+            lines.append(
+                f"- Widest: **{dom_issuer}** long end ({years[0]}–{years[-1]} maturities) at "
+                f"{min(spreads):.0f}–{max(spreads):.0f} bps ({rating}) — {dom_n} of the 15 widest bonds."
+            )
+        else:
+            leaders = " · ".join(
+                f"{issuer} {max(r.spread_bps for r in widest if r.issuer == issuer):.0f}"
+                for issuer in sorted(top_counts, key=lambda i: max(r.spread_bps for r in widest if r.issuer == i), reverse=True)[:3]
+            )
+            lines.append(f"- Widest by issuer (top 15): {leaders} bps.")
     lines.append("")
     lines.append("## Data coverage")
     lines.append("")
-    for issuer, d in diagnostics.get("issuers", {}).items():
-        lines.append(f"- {issuer}: {d['raw_matches']} FINRA matches; {d['active_after_filters']} active after filters; {d['usable_recent']} usable recent-yield bonds.")
+    issuers_d = diagnostics.get("issuers", {})
+    raw_total = sum(d["raw_matches"] for d in issuers_d.values())
+    usable_total = sum(d["usable_recent"] for d in issuers_d.values())
+    lines.append(f"- {raw_total} FINRA matches → {usable_total} usable recent-yield bonds across {len(issuers_d)} issuers after filters.")
     if diagnostics.get("warnings"):
         lines.append("")
         lines.append("## Warnings")
@@ -541,10 +553,7 @@ def main(argv: list[str] | None = None) -> int:
 
     print(report)
     if not args.dry_run:
-        print(f"Saved Markdown: {md}")
-        print(f"Saved CSV: {csv_path}")
-        print(f"Latest Markdown: {LATEST_MD}")
-        print(f"Latest CSV: {LATEST_CSV}")
+        print(f"Saved: {md} (+csv, latest.*)")
     return 0
 
 
