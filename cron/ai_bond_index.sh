@@ -15,3 +15,8 @@ cd "$REPO"
 # MEDIA: line from the plotter so no_agent cron delivery includes the chart photo.
 "$PY" "$REPO/code/plot_ai_bond_benchmark_spreads.py"
 "$PY" "$REPO/site/generate.py"
+# Static site on Gaudi. Docroot is deploy:deploy; BatchMode so cron is non-interactive.
+rsync -q -e "ssh -o BatchMode=yes" \
+  "$REPO/site/index.html" \
+  "$REPO/data/ai_bond_benchmark_spreads_30d.png" \
+  deploy@167.172.22.65:/var/www/aifinancials.xyz/
